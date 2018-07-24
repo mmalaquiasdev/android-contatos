@@ -12,18 +12,15 @@ public class FormularioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_formulario);
-        acaoBotaoSalvar();
+        super.setContentView(R.layout.activity_formulario);
+        this.acaoBotaoSalvar();
     }
 
     private void acaoBotaoSalvar() {
         Button botaoSalvar = findViewById(R.id.formulario_bt_salvar);
-        botaoSalvar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                makeText(FormularioActivity.this, "Cliquei no botão", LENGTH_SHORT)
-                .show();
-            }
+        botaoSalvar.setOnClickListener((view) -> {
+            makeText(FormularioActivity.this, "Contato salvo com sucesso", LENGTH_SHORT).show();
+            finish();
         });
     }
 }

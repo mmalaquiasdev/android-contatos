@@ -10,7 +10,7 @@
    <ListView
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       android:id="@+id/lv_lista_alunos"/>
+       android:id="@+id/lv_lista_contatos"/>
 
    <Button
        android:layout_width="56dp"
@@ -23,5 +23,6 @@
        android:layout_alignParentRight="true"
        android:layout_marginBottom="16dp"
        android:layout_marginRight="16dp"
-       android:background="@drawable/bt_novo_aluno_fundo"/>
+       android:background="@drawable/bt_novo_contato_fundo"
+       android:id="@+id/bt_novo_contato"/>
 </RelativeLayout>
