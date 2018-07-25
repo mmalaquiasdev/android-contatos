@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import java.util.logging.Logger;
 
+import mmalaquiasdev.github.com.agenda.dao.ContatoDAO;
 import mmalaquiasdev.github.com.agenda.helper.FormularioHelper;
 import mmalaquiasdev.github.com.agenda.model.Contato;
 
@@ -18,12 +19,14 @@ import static android.widget.Toast.*;
 public class FormularioActivity extends AppCompatActivity {
 
     FormularioHelper helper;
+    ContatoDAO dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_formulario);
         this.helper = new FormularioHelper(this);
+        dao = new ContatoDAO(this);
     }
 
     @Override
@@ -44,7 +47,13 @@ public class FormularioActivity extends AppCompatActivity {
     }
 
     private void acaoBotaoSalvar(Contato contato) {
+        salvarNovoContato(contato);
         makeText(FormularioActivity.this, "Contato salvo com sucesso" + " " + contato.getNome(), LENGTH_SHORT).show();
         finish();
+    }
+
+    private void salvarNovoContato(Contato contato) {
+        dao.inserir(contato);
+        dao.close();
     }
 }
