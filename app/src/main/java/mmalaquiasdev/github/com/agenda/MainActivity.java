@@ -7,22 +7,33 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import mmalaquiasdev.github.com.agenda.dao.ContatoDAO;
+import mmalaquiasdev.github.com.agenda.model.Contato;
+
 public class MainActivity extends AppCompatActivity {
+
+    ContatoDAO dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_main);
-        this.desenhaLvListaAlunos(this.getContatosMock());
+        dao = new ContatoDAO(this);
+        this.desenhaLvListaAlunos(this.getContatos());
         this.acaoBotaoNovoContato();
     }
 
-    private void desenhaLvListaAlunos(List contatos) {
+    private void desenhaLvListaAlunos(List<Contato> contatos) {
         ListView lvListaContatos = findViewById(R.id.lv_lista_contatos);
-        lvListaContatos.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, contatos));
+        List<String> contatosNomes = new ArrayList<>();
+
+        for (Contato c: contatos) contatosNomes.add(c.getNome());
+
+        lvListaContatos.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, contatosNomes));
     }
 
     private void acaoBotaoNovoContato() {
@@ -30,8 +41,11 @@ public class MainActivity extends AppCompatActivity {
         novoContato.setOnClickListener((view) -> startActivity(new Intent(MainActivity.this, FormularioActivity.class)));
     }
 
-    private List getContatosMock() {
-        return Arrays.asList("Daniel", "Ronaldo", "Cafu", "Dida", "Romario");
+    private List<Contato> getContatos() {
+         List<Contato> contatos = dao.buscarTodosComNome();
+         dao.close();
+
+         return contatos;
     }
 
 }

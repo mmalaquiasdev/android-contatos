@@ -41,4 +41,16 @@ public class Contato {
     public Double getNota() {
         return nota;
     }
+
+    @Override
+    public String toString() {
+        return "Contato{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", site='" + site + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", nota=" + nota +
+                '}';
+    }
 }
