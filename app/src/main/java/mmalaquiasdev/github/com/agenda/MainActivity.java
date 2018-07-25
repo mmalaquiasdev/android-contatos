@@ -23,8 +23,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_main);
         dao = new ContatoDAO(this);
-        this.desenhaLvListaAlunos(this.getContatos());
         this.acaoBotaoNovoContato();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.desenhaLvListaAlunos(this.getContatos());
     }
 
     private void desenhaLvListaAlunos(List<Contato> contatos) {
