@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import mmalaquiasdev.github.com.agenda.dao.ContatoDAO;
@@ -29,16 +28,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        this.desenhaLvListaAlunos(this.getContatos());
+        this.carregarListaContatos(this.getContatos());
     }
 
-    private void desenhaLvListaAlunos(List<Contato> contatos) {
+    private void carregarListaContatos(List<Contato> contatos) {
         ListView lvListaContatos = findViewById(R.id.lv_lista_contatos);
-        List<String> contatosNomes = new ArrayList<>();
 
-        for (Contato c: contatos) contatosNomes.add(c.getNome());
-
-        lvListaContatos.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, contatosNomes));
+        lvListaContatos.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, contatos));
     }
 
     private void acaoBotaoNovoContato() {
