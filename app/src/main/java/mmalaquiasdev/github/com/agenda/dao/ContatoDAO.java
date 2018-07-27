@@ -98,4 +98,10 @@ public class ContatoDAO extends SQLiteOpenHelper {
         String [] params = { contato.getId().toString() };
         db.delete("contatos", "id = ?", params);
     }
+
+    public void atualizar(Contato contato) {
+        SQLiteDatabase db = getWritableDatabase();
+        String[] params = { contato.getId().toString() };
+        db.update("contatos", converter(contato), "id = ?", params);
+    }
 }

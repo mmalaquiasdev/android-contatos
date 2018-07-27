@@ -20,6 +20,7 @@ public class FormularioActivity extends AppCompatActivity {
 
     FormularioHelper helper;
     ContatoDAO dao;
+    long contatoId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,12 @@ public class FormularioActivity extends AppCompatActivity {
     }
 
     private void acaoBotaoSalvar(Contato contato) {
-        salvarNovoContato(contato);
+        if (contatoId == 0L) {
+            salvarNovoContato(contato);
+        }else {
+            atualizarContato(contatoId, contato);
+        }
+
         makeText(FormularioActivity.this, "Contato salvo com sucesso" + " " + contato.getNome(), LENGTH_SHORT).show();
         finish();
     }
@@ -63,8 +69,14 @@ public class FormularioActivity extends AppCompatActivity {
         dao.close();
     }
 
+    private void atualizarContato(Long contatoId, Contato contato) {
+       Contato contatoAtualizado = new Contato(contatoId, contato.getNome(), contato.getEndereco(), contato.getSite(), contato.getTelefone(), contato.getNota());
+       dao.atualizar(contatoAtualizado);
+       dao.close();
+    }
+
     private void carregarFormularioParaEdicao() {
-        long contatoId = getIntent().getLongExtra("contatoId", 0L);
+        contatoId = getIntent().getLongExtra("contatoId", 0L);
         if(contatoId != 0L) {
             Contato contato = dao.buscarPorId(contatoId);
             helper.carregarDadosParaEdicao(contato);
