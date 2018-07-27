@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         this.carregarListaContatos(this.getContatos());
+        this.alterarContatos(this.lvListaContatos);
     }
 
     @Override
@@ -60,6 +61,13 @@ public class MainActivity extends AppCompatActivity {
     private void acaoBotaoNovoContato() {
         Button novoContato = findViewById(R.id.bt_novo_contato);
         novoContato.setOnClickListener((view) -> startActivity(new Intent(MainActivity.this, FormularioActivity.class)));
+    }
+
+    private void alterarContatos(ListView lvListaContatos) {
+        lvListaContatos.setOnItemClickListener((list, item, position, itemId) -> {
+            Contato contato = (Contato) lvListaContatos.getItemAtPosition(position);
+            Toast.makeText(MainActivity.this, "Contato " + contato.getNome() + " clicado!", Toast.LENGTH_SHORT).show();
+        });
     }
 
     private List<Contato> getContatos() {
