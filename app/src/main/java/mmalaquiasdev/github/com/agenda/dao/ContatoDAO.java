@@ -43,6 +43,15 @@ public class ContatoDAO extends SQLiteOpenHelper {
         return converterComNome(cursor);
     }
 
+    public Contato buscarPorId(Long id) {
+        String sql = "SELECT id, nome, endereco, site, telefone, nota FROM contatos WHERE id = ?;";
+        String [] params = { id.toString() };
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(sql, params);
+
+        return converter(cursor).get(0);
+    }
+
     private ContentValues converter(Contato contato) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("nome", contato.getNome());
@@ -53,6 +62,24 @@ public class ContatoDAO extends SQLiteOpenHelper {
 
         return contentValues;
     }
+
+
+    private List<Contato> converter(Cursor cursor) {
+        List<Contato> contatos = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            Long id = cursor.getLong(cursor.getColumnIndex("id"));
+            String nome = cursor.getString(cursor.getColumnIndex("nome"));
+            String endereco = cursor.getString(cursor.getColumnIndex("endereco"));
+            String site = cursor.getString(cursor.getColumnIndex("site"));
+            String telefone = cursor.getString(cursor.getColumnIndex("telefone"));
+            Double nota = cursor.getDouble(cursor.getColumnIndex("nota"));
+            contatos.add(new Contato(id, nome, endereco, site, telefone, nota));
+        }
+        cursor.close();
+
+        return contatos;
+    }
+
 
     private List<Contato> converterComNome(Cursor cursor) {
         List<Contato> contatos = new ArrayList<>();
