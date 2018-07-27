@@ -66,7 +66,9 @@ public class MainActivity extends AppCompatActivity {
     private void alterarContatos(ListView lvListaContatos) {
         lvListaContatos.setOnItemClickListener((list, item, position, itemId) -> {
             Contato contato = (Contato) lvListaContatos.getItemAtPosition(position);
-            Toast.makeText(MainActivity.this, "Contato " + contato.getNome() + " clicado!", Toast.LENGTH_SHORT).show();
+            Intent intentVaiProFormulario = new Intent(MainActivity.this, FormularioActivity.class);
+            intentVaiProFormulario.putExtra("contatoId", contato.getId());
+            startActivity(intentVaiProFormulario);
         });
     }
 

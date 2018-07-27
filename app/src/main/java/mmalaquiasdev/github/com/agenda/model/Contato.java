@@ -1,6 +1,8 @@
 package mmalaquiasdev.github.com.agenda.model;
 
-public class Contato {
+import java.io.Serializable;
+
+public class Contato implements Serializable {
 
     private final Long id;
     private final String nome;

@@ -30,6 +30,12 @@ public class FormularioActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        carregarFormularioParaEdicao();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.getMenuInflater().inflate(R.menu.menu_formulario, menu);
         return super.onCreateOptionsMenu(menu);
@@ -55,5 +61,13 @@ public class FormularioActivity extends AppCompatActivity {
     private void salvarNovoContato(Contato contato) {
         dao.inserir(contato);
         dao.close();
+    }
+
+    private void carregarFormularioParaEdicao() {
+        long contatoId = getIntent().getLongExtra("contatoId", 0L);
+        if(contatoId != 0L) {
+            Contato contato = dao.buscarPorId(contatoId);
+            helper.carregarDadosParaEdicao(contato);
+        }
     }
 }

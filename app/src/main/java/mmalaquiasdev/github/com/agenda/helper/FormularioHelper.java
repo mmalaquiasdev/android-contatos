@@ -5,6 +5,7 @@ import android.widget.RatingBar;
 
 import mmalaquiasdev.github.com.agenda.FormularioActivity;
 import mmalaquiasdev.github.com.agenda.R;
+import mmalaquiasdev.github.com.agenda.dao.ContatoDAO;
 import mmalaquiasdev.github.com.agenda.model.Contato;
 
 public class FormularioHelper {
@@ -14,7 +15,6 @@ public class FormularioHelper {
     private final EditText campoSite;
     private final EditText campoTelefone;
     private final RatingBar campoNota;
-
 
     public FormularioHelper(FormularioActivity activity) {
         campoNome = activity.findViewById(R.id.formulario_nome);
@@ -33,5 +33,13 @@ public class FormularioHelper {
                 campoTelefone.getText().toString(),
                 Double.valueOf(campoNota.getRating())
         );
+    }
+
+    public void carregarDadosParaEdicao(Contato contato) {
+        campoNome.setText(contato.getNome());
+        campoEndereco.setText(contato.getEndereco());
+        campoNota.setProgress(contato.getNota().intValue());
+        campoSite.setText(contato.getSite());
+        campoTelefone.setText(contato.getTelefone());
     }
 }
