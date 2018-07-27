@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import mmalaquiasdev.github.com.agenda.model.Contato;
@@ -63,5 +64,11 @@ public class ContatoDAO extends SQLiteOpenHelper {
         cursor.close();
 
         return contatos;
+    }
+
+    public void delete(Contato contato) {
+        SQLiteDatabase db = getWritableDatabase();
+        String [] params = { contato.getId().toString() };
+        db.delete("contatos", "id = ?", params);
     }
 }

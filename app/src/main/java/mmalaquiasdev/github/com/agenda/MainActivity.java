@@ -39,7 +39,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)  {
-        menu.add("Deletar");
+        MenuItem deletar = menu.add("Deletar");
+        deletar.setOnMenuItemClickListener(item -> {
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+            Contato contato = (Contato) lvListaContatos.getItemAtPosition(info.position);
+            dao.delete(contato);
+            dao.close();
+            Toast.makeText(MainActivity.this, "Deletando o contato " + contato.getNome(), Toast.LENGTH_SHORT).show();
+            onResume();
+            return false;
+        });
     }
 
     private void carregarListaContatos(List<Contato> contatos) {
